@@ -13,23 +13,23 @@ public class TankDrive extends CommandBase {
     double right;
 
     /** Creates a new TankDrive. */
-    public TankDrive(Drivetrain drivetrain, double left, double right) {
+    public TankDrive(Drivetrain drivetrain, double right, double left) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
-        this.left = left;
-        this.right = right;
+        this.left = right;
+        this.right = left;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        drivetrain.setPower(left, right);
+        drivetrain.setPower(right, left);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        drivetrain.setPower(left, right);
+        drivetrain.setPower(right, left);
     }
 
     // Called once the command ends or is interrupted.

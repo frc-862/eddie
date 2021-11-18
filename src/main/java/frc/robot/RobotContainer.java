@@ -37,7 +37,7 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         //Standard tank drive bindings
-        drivetrain.setDefaultCommand(new TankDrive(drivetrain, driverLeft.getY(), driverRight.getY()));
+        drivetrain.setDefaultCommand(new TankDrive(drivetrain, driverRight.getY(), driverLeft.getY()));
     }
 
     /**
