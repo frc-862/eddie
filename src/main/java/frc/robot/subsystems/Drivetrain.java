@@ -9,45 +9,37 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
 
-  public Victor left1;
-  public Victor left2;
-  public Victor left3;
-  public Victor right1;
-  public Victor right2;
-  public Victor right3;
-  
-  /** Creates a new Drivetrain. */
-  public Drivetrain() {
-    // TODO: temp ID's, ADD LATER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public Victor left1;
+    public Victor left2;
 
-    left1 = new Victor(1);
-    left2 = new Victor(2);
-    left3 = new Victor(3);
-    right1 = new Victor(4);
-    right2 = new Victor(5);
-    right3 = new Victor(6);
+    public Victor right1;
+    public Victor right2;
+    
+    /** Creates a new Drivetrain. */
+    public Drivetrain() {
+        left1 = new Victor(1);
+        left2 = new Victor(2);
 
-  }
+        right1 = new Victor(3);
+        right2 = new Victor(4);
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+        //TODO: check what motors (if any) need to be inverted
 
-  public void setLeftPower(double pwr){
-    left1.set(pwr);
-    left2.set(pwr);
-    left3.set(pwr);
-  }
+    }
 
-  public void setRightPower(double pwr){
-    right1.set(pwr);
-    right2.set(pwr);
-    right3.set(pwr);
-  }
+    @Override
+    public void periodic() {}
 
-  public void stop(){
-    setLeftPower(0);
-    setRightPower(0);  
-  }
+    public void setPower(double right, double left) {
+        left1.set(left);
+        left2.set(left);
+        
+        right1.set(right);
+        right1.set(right);
+    }
+
+    public void stop() {
+        setPower(0, 0); 
+    }
+
 }

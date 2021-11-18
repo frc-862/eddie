@@ -4,16 +4,15 @@
 
 package frc.robot;
 
-import java.lang.invoke.ConstantBootstraps;
-import java.sql.Driver;
-
-import edu.wpi.first.hal.SimDevice.Direction;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.Constants;
-import frc.robot.commands.Drive;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Shooter;
+import frc.robot.commands.IndexerControl;
+import frc.robot.commands.ShooterControl;
+import frc.robot.commands.TankDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -24,37 +23,44 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final Drivetrain drivetrain = new Drivetrain();
+    // The robot's subsystems and commands are defined here...
+    private final Drivetrain drivetrain = new Drivetrain();
+    private final Shooter shooter = new Shooter();
+    private final Indexer indexer = new Indexer();
 
-  public double left_stick;
-  public double right_stick;
+    private static final Joystick driverLeft = new Joystick(0);
+    private static final Joystick driverRight = new Joystick(1);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
 
-    drivetrain.setDefaultCommand(new Drive(drivetrain, left_stick, right_stick));
-    // Configure the button bindings
-    configureButtonBindings();
-  }
+    /** The container for the robot. Contains subsystems, OI devices, and commands. */
+    public RobotContainer() {
+        // Configure the button bindings
+        configureButtonBindings();
+        //Standard tank drive bindings
+        drivetrain.setDefaultCommand(new TankDrive(drivetrain, driverLeft.getY(), driverRight.getY()));
+    }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() {
+    /**
+     * Use this method to define your button->command mappings. Buttons can be created by
+     * instantiating a {@link GenericHID} or one of its subclasses ({@link
+     * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+     * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+     */
+    private void configureButtonBindings() {
+        //Right flight stick trigger to spin shooter
+        (new JoystickButton(driverRight, 1)).whileHeld(new ShooterControl(shooter, 1));
 
-  }
+        //Left fligt stick trigger to run indexer
+        (new JoystickButton(driverLeft, 1)).whileHeld(new IndexerControl(indexer, 1));
+    }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return null;
-  }
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    public Command getAutonomousCommand() {
+        // An ExampleCommand will run in autonomous
+        return null;
+    }
 }
