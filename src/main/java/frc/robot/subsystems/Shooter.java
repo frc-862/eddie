@@ -11,7 +11,7 @@ public class Shooter extends SubsystemBase {
     public final Victor shooterMotor;
 
     public Shooter() {
-        shooterMotor = new Victor(5); //TODO: check if shooter port is correct and check if there are two motors
+        shooterMotor = new Victor(6); //TODO: check if shooter port is correct and check if there are two motors
     }
 
     @Override

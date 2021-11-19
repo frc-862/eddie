@@ -11,7 +11,7 @@ public class Indexer extends SubsystemBase {
     public final Victor indexerMotor;
 
     public Indexer() {
-        indexerMotor = new Victor(7);
+        indexerMotor = new Victor(5);
     }
 
     @Override

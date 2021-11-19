@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
@@ -28,8 +29,9 @@ public class RobotContainer {
     private final Shooter shooter = new Shooter();
     private final Indexer indexer = new Indexer();
 
-    private static final Joystick driverLeft = new Joystick(0);
-    private static final Joystick driverRight = new Joystick(1);
+    public final Joystick driverRight = new Joystick(1);
+    public final Joystick driverLeft = new Joystick(0);
+
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -37,7 +39,7 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         //Standard tank drive bindings
-        drivetrain.setDefaultCommand(new TankDrive(drivetrain, driverRight.getY(), driverLeft.getY()));
+        drivetrain.setDefaultCommand(new TankDrive(drivetrain, () -> -driverRight.getY(), () -> -driverLeft.getY()));
     }
 
     /**
@@ -47,10 +49,10 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        //Right flight stick trigger to spin shooter
+        // //Right flight stick trigger to spin shooter
         (new JoystickButton(driverRight, 1)).whileHeld(new ShooterControl(shooter, 1));
 
-        //Left fligt stick trigger to run indexer
+        // //Left fligt stick trigger to run indexer
         (new JoystickButton(driverLeft, 1)).whileHeld(new IndexerControl(indexer, 1));
     }
 
