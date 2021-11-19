@@ -4,14 +4,16 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Indexer;
 
 public class IndexerControl extends CommandBase {
-    double power;
+    DoubleSupplier power;
     Indexer indexer;
 
-    public IndexerControl(Indexer indexer, double power) {
+    public IndexerControl(Indexer indexer, DoubleSupplier power) {
         addRequirements(indexer);
         this.indexer = indexer;
         this.power = power;
@@ -20,7 +22,7 @@ public class IndexerControl extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        indexer.setPower(power);
+        indexer.setPower(power.getAsDouble());
     }
 
     // Called every time the scheduler runs while the command is scheduled.
