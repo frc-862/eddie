@@ -1,43 +1,49 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.motorcontrol.Victor;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.*;
 public class Drivetrain extends SubsystemBase {
-
     public Victor left1;
     public Victor left2;
 
     public Victor right1;
     public Victor right2;
-    
-    /** Creates a new Drivetrain. */
-    public Drivetrain() {
-        left1 = new Victor(3);
-        left2 = new Victor(1);
 
-        right1 = new Victor(2);
-        right2 = new Victor(4);
-        right1.setInverted(true);
-        right2.setInverted(true);
+    private ShuffleboardTab demoTab = Shuffleboard.getTab("demo");
+
+	private NetworkTableEntry speedCap = demoTab.add("speed cap", Constants.DEFAULT_SPEED_CAP).getEntry();
+
+    public Drivetrain() {
+        left1 = new Victor(RobotMap.LEFT1);
+        left2 = new Victor(RobotMap.LEFT2);
+
+        right1 = new Victor(RobotMap.RIGHT1);
+        right2 = new Victor(RobotMap.RIGHT2);
+
+        left1.setInverted(Constants.DRIVE_LEFT1_INVERT);
+        left2.setInverted(Constants.DRIVE_LEFT2_INVERT);
+
+        right1.setInverted(Constants.DRIVE_RIGHT1_INVERT);
+        right2.setInverted(Constants.DRIVE_RIGHT2_INVERT);
+
+        CommandScheduler.getInstance().registerSubsystem(this);
     }
 
-    @Override
-    public void periodic() {}
-
-    public void setPower(double right, double left) {
-        left1.set(left);
-        left2.set(left);
-        
-        right1.set(right);
-        right2.set(right);
+    public void setPower(double rightPower, double leftPower) {
+        leftPower *= speedCap.getDouble(Constants.DEFAULT_SPEED_CAP);
+        rightPower *= speedCap.getDouble(Constants.DEFAULT_SPEED_CAP);
+        left1.set(leftPower);
+        right1.set(rightPower);
+        left2.set(leftPower);
+        right2.set(rightPower);
     }
 
     public void stop() {
         setPower(0, 0); 
     }
-
 }
