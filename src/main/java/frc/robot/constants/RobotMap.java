@@ -8,9 +8,9 @@ public class RobotMap {
     public static final int RIGHT2 = 4;
 
     //SHOOTER
-    public static final int SHOOTER = 5;
+    public static final int SHOOTER = 6;
 
     //INDEXER
-    public static final int INDEXER = 4;
+    public static final int INDEXER = 5;
 
 }

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.*;
 
 public class Shooter extends SubsystemBase {
-    public final Victor shooterMotor;
+    private final Victor shooterMotor;
 
     private ShuffleboardTab demoTab = Shuffleboard.getTab("demo");
 

@@ -13,8 +13,8 @@ public class TankDrive extends CommandBase {
     public TankDrive(Drivetrain drivetrain, DoubleSupplier right, DoubleSupplier left) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
-        this.left = right;
-        this.right = left;
+        this.left = left;
+        this.right = right;
     }
 
     @Override
