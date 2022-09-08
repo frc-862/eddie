@@ -13,4 +13,6 @@ public class RobotMap {
     //INDEXER
     public static final int INDEXER = 5;
 
+    //VOLTAGE
+    public static final int VOLTAGE = 0;
 }

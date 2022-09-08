@@ -13,6 +13,7 @@ public class RobotContainer {
     private final Drivetrain drivetrain = new Drivetrain();
     private final Shooter shooter = new Shooter();
     private final Indexer indexer = new Indexer();
+    private final Voltage voltage = new Voltage(); //read only
 
     public final Joystick driverRight = new Joystick(JoystickConstants.Ports.DRIVER_RIGHT);
     public final Joystick driverLeft = new Joystick(JoystickConstants.Ports.DRIVER_LEFT);
